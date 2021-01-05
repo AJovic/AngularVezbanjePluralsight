@@ -3,7 +3,10 @@
         {{pageTitle}}
     </div>
     <div class="  card-body">
-        <button (click)='toggleImage()' >Prikazi nesto</button>
+        <h3>Filtriraj po {{listFilter}}</h3>
+        <input  type="text" [(ngModel)]='listFilter'/> 
+        <button (click)='toggleImage()' >{{showImage?"Zatvoris like":"Prikazi"}}</button>
+
         <table>
             <thead>
                 <th>Product</th>
@@ -21,7 +24,8 @@
                     <td>{{product.productCode}}</td>
                     <td>{{product.avaible}}</td>
                     <td>{{product.price}}</td>
-                    <td>{{product.starRating}}</td>
+                    <td><pm-star [rating]="product.starRating" (raitingClicked)="onRaitingClicked($event)"></pm-star></td>
+           
                 </tr>
             </tbody>
         </table>
