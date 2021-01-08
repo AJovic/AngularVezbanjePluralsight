@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
+import {HttpClient} from '@angular/common/http'
+import {Observable} from 'rxjs'
+import { ProductServices } from './product.service';
 
 @Component({
     selector:"pm-products",
@@ -21,33 +24,20 @@ export class ProductListComponent implements OnInit{
         this._listFilter = value;
 
     }
-    products : IProduct[] =[
-        {
-            "productId":1,
-            "productName":"Sljiva",
-            "productCode":"12345",
-            "avaible":"yes",
-            "price":1000,
-            "starRating":5,
-            "imageUrl" : "assets/1.png"
-        },
-        {
-            "productId":2,
-            "productName":"Kruska",
-            "productCode":"12345",
-            "avaible":"yes",
-            "price":1000,
-            "starRating":50,
-            "imageUrl" : "assets/1.png"
-        }
-    ] ;
+    products : IProduct[] =[]
+
+    constructor(private http : HttpClient, private productService : ProductServices){}
 
     toggleImage():void{
         this.showImage = !this.showImage
     }
 
     ngOnInit():void{
-        debugger
+debugger
+        this.productService.getProducts().subscribe( { 
+            next: products => this.products = products,
+ 
+        })
         console.log("")
     }
 
